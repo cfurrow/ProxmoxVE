@@ -35,12 +35,11 @@ $STD apt-get install -y nodejs
 msg_ok "Installed Node.js"
 
 msg_info "Installing yarn"
-$STD corepack enable
-$STD corepack prepare yarn@stable --activate
+$STD npm install -g yarn
 msg_ok "Installed yarn $(yarn --version)"
 
 msg_info "Installing Grist"
-RELEASE=$(wget -q https://github.com/gristlabs/grist-core/releases/latest -O - | grep "title>Release" | cut -d " " -f 5)
+RELEASE=$(curl -s https://github.com/gristlabs/grist-core/releases/latest | grep "tag_name" | awk '{print substr($2, 3, length($2)-4) }')
 cd /opt
 wget -q https://github.com/gristlabs/grist-core/archive/refs/tags/v${RELEASE}.zip
 unzip -q v$RELEASE.zip -d grist
