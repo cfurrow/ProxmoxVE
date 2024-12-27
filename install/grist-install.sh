@@ -46,8 +46,8 @@ wget -q https://github.com/gristlabs/grist-core/archive/refs/tags/v${RELEASE}.zi
 unzip -q v$RELEASE.zip -d grist
 cd grist
 $STD yarn install
-$STD yarn build:prod
-$STD yarn install:python
+$STD yarn run build:prod
+$STD yarn run install:python
 echo "${RELEASE}" >/opt/${APPLICATION}_version.txt
 
 cat <<EOF >/opt/grist/.env
@@ -64,7 +64,7 @@ After=network.target
 [Service]
 Type=exec
 WorkingDirectory=/opt/grist 
-ExecStart=/usr/bin/yarn start:prod
+ExecStart=/usr/bin/yarn run start:prod
 EnvironmentFile=-/opt/grist/.env
 
 [Install]
