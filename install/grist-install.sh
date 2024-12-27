@@ -4,6 +4,7 @@
 # Author: tteck (tteckster)
 # License: MIT
 # https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
+# Source: https://github.com/gristlabs/grist-core
 
 source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
 color
@@ -18,7 +19,7 @@ $STD apt-get install -y \
   curl \
   sudo \
   make \
-  gpg \
+  gnupg \
   ca-certificates \
   mc
 msg_ok "Installed Dependencies"
@@ -45,9 +46,14 @@ wget -q https://github.com/gristlabs/grist-core/archive/refs/tags/v${RELEASE}.zi
 unzip -q v$RELEASE.zip -d grist
 cd grist
 $STD yarn install
-$STD yarn run build:prod
-$STD yarn run install:python
+$STD yarn build:prod
+$STD yarn install:python
 echo "${RELEASE}" >/opt/${APPLICATION}_version.txt
+
+cat <<EOF >/opt/grist/.env
+NODE_ENV=production
+EOF
+
 msg_ok "Installed Grist"
 
 cat <<EOF >/etc/systemd/system/grist.service
@@ -56,12 +62,10 @@ Description=Grist
 After=network.target
 
 [Service]
-Type=simple
-ExecStart=/usr/bin/yarn start:prod
-Restart=always
-User=root
-Environment=NODE_ENV=production
+Type=exec
 WorkingDirectory=/opt/grist 
+ExecStart=/usr/bin/yarn start:prod
+EnvironmentFile=-/opt/grist/.env
 
 [Install]
 WantedBy=multi-user.target
