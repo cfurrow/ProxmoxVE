@@ -43,7 +43,9 @@ msg_info "Installing Grist"
 RELEASE=$(curl -s https://api.github.com/repos/gristlabs/grist-core/releases/latest | grep "tag_name" | awk '{print substr($2, 3, length($2)-4) }')
 cd /opt
 wget -q https://github.com/gristlabs/grist-core/archive/refs/tags/v${RELEASE}.zip
-unzip -q v$RELEASE.zip -d grist
+unzip -q v$RELEASE.zip
+rm -rf v${RELEASE}.zip
+mv grist-core-${RELEASE} grist
 cd grist
 $STD yarn install
 $STD yarn run build:prod
@@ -78,6 +80,5 @@ customize
 
 msg_info "Cleaning up"
 $STD apt-get -y autoremove
-rm -rf /opt/v$RELEASE.zip
 $STD apt-get -y autoclean
 msg_ok "Cleaned"
