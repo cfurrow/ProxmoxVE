@@ -40,7 +40,7 @@ $STD npm install -g yarn
 msg_ok "Installed yarn $(yarn --version)"
 
 msg_info "Installing Grist"
-RELEASE=$(curl -s https://github.com/gristlabs/grist-core/releases/latest | grep "tag_name" | awk '{print substr($2, 3, length($2)-4) }')
+RELEASE=$(curl -s https://api.github.com/repos/gristlabs/grist-core/releases/latest | grep "tag_name" | awk '{print substr($2, 3, length($2)-4) }')
 cd /opt
 wget -q https://github.com/gristlabs/grist-core/archive/refs/tags/v${RELEASE}.zip
 unzip -q v$RELEASE.zip -d grist
