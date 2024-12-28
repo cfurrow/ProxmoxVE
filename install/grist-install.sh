@@ -21,7 +21,8 @@ $STD apt-get install -y \
   make \
   gnupg \
   ca-certificates \
-  mc
+  mc \
+  python3.11-venv
 msg_ok "Installed Dependencies"
 
 msg_info "Setting up Node.js Repository"
