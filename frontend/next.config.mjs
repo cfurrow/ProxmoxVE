@@ -19,7 +19,7 @@ const nextConfig = {
   },
 
   output: "export",
-  basePath: `/ProxmoxVE`,
+  basePath: '',
 };
 
 export default nextConfig;
