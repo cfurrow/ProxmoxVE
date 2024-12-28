@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-source <(curl -s https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/misc/build.func)
+source <(curl -s https://raw.githubusercontent.com/cfurrow/ProxmoxVE/refs/heads/grist-spreadsheets/misc/build.func)
 # Source: https://www.getgrist.com/product/self-managed/
 # Source: https://github.com/gristlabs/grist-core
 # Install: bash -c "$(wget -qLO - https://github.com/cfurrow/ProxmoxVE/raw/grist-spreadsheets/ct/grist.sh)"
