@@ -55,6 +55,7 @@ echo "${RELEASE}" >/opt/${APPLICATION}_version.txt
 
 cat <<EOF >/opt/grist/.env
 NODE_ENV=production
+GRIST_HOST=0.0.0.0
 EOF
 
 msg_ok "Installed Grist"
